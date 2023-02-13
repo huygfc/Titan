@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "403081404659",
+    "project_id": "titan-58a2d",
+    "storage_bucket": "titan-58a2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403081404659:android:8d5eb22d8c51e5f21b5786",
+        "android_client_info": {
+          "package_name": "com.titan.titan_saga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403081404659-p30lst3uj6ngrom3ngq35c30q4c2jn3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.titan.titan_saga",
+            "certificate_hash": "a521cc1e3bf04a482612b1f9ac2a7e9234c0efbb"
+          }
+        },
+        {
+          "client_id": "403081404659-ae4jvhql67spprbndjk02mj26os89ujp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF2lNgHsnexWCgENskvIed1VTqrwanXC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403081404659-ae4jvhql67spprbndjk02mj26os89ujp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
