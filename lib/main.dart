@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:titan_saga/auth/view/login.dart';
+import 'package:titan_saga/dashboard/view/dashboard.dart';
+import 'package:titan_saga/utils/colors.dart';
+import 'package:titan_saga/utils/shared_prefrence.dart';
 import 'auth/view/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  Shared_Preference.init();
   // initializing the firebase app
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
         title: 'Titan Saga',
         theme: ThemeData(
           brightness: Brightness.light,
-          // primaryColor: ThemeColors.primaryColor,
+          primaryColor: ThemeColor.primaryColor,
           fontFamily: 'noto_sans',
           textTheme: const TextTheme(
             headline2: TextStyle(
@@ -28,6 +31,8 @@ class MyApp extends StatelessWidget {
                 color: Colors.amberAccent),
           ),
         ),
-        home: const Login());
+        home: Shared_Preference?.getBool(SharedPreferenceKeys.isLogin) == true
+            ? const Dashboard()
+            : const Login());
   }
 }

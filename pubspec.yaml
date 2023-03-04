@@ -35,6 +35,11 @@ dependencies:
   firebase_auth: ^4.2.6
   google_sign_in: ^5.4.4
   carousel_slider: ^4.2.1
+  http: ^0.13.5
+  logger: ^1.2.2
+  flutter_widget_from_html: ^0.9.1
+  shared_preferences: ^2.0.18
+
 
 dev_dependencies:
   flutter_test:
@@ -102,9 +107,10 @@ flutter:
   # example:
   # fonts:
   #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: noto_sans
+      fonts:
+        - asset: assets/fonts/NotoSans-Black.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
