@@ -78,18 +78,18 @@ class HomepageDisplayProdutcs extends StatelessWidget {
             height: 10,
           ),
           SizedBox(
-              height: MediaQuery.of(context).size.height * 0.315,
-              width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 4,
-                itemBuilder: (context, index) => const HomePageDisplayItem(
-                  productImagePath: "assets/images/image_one.jpg",
-                  productName: "product name",
-                  productPrice: "Rs. 8000",
-                ),
+            height: MediaQuery.of(context).size.height * 0.315,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 4,
+              itemBuilder: (context, index) => const HomePageDisplayItem(
+                productImagePath: "assets/images/image_one.jpg",
+                productName: "product name",
+                productPrice: "Rs. 8000",
               ),
-              c),
+            ),
+          ),
         ],
       ),
     );
