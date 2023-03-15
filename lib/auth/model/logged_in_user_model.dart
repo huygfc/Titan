@@ -1,32 +1,32 @@
-class LoogedInUserModel {
+class LoggedInUserModel {
   String? id;
   String? name;
   String? email;
-  String? profiePicture;
+  String? profilePicture;
   String? createdAt;
-  // List<dynamic>? likeProduct;
+  // List<dynamic>? likedProduct;
 
-  LoogedInUserModel({
+  LoggedInUserModel({
     this.id,
     this.name,
     this.email,
-    this.profiePicture,
+    this.profilePicture,
     this.createdAt,
-    //   this.likeProduct,
+    // this.likedProduct,
   });
 
-  LoogedInUserModel.fromJson(Map<String, dynamic> json) {
+  LoggedInUserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
-    profiePicture = json['profie_picture'];
+    profilePicture = json['profile_picture'];
     createdAt = json['created_at'];
-    // if (json['like_product'] != null) {
-    //   likeProduct = <Null>[];
-    //   json['like_product'].forEach((v) {
-    //     likeProduct!.add(new Null.fromJson(v));
+    // if (json['liked_product'] != null) {
+    //   likedProduct = <Null>[];
+    //   json['liked_product'].forEach((v) {
+    //     likedProduct!.add(new Null.fromJson(v));
     //   });
-    //}
+    // }
   }
 
   Map<String, dynamic> toJson() {
@@ -34,10 +34,11 @@ class LoogedInUserModel {
     data['id'] = this.id;
     data['name'] = this.name;
     data['email'] = this.email;
-    data['profie_picture'] = this.profiePicture;
+    data['profile_picture'] = this.profilePicture;
     data['created_at'] = this.createdAt;
-    // if (this.likeProduct != null) {
-    //   data['like_product'] = this.likeProduct!.map((v) => v.toJson()).toList();
+    // if (this.likedProduct != null) {
+    //   data['liked_product'] =
+    //       this.likedProduct!.map((v) => v.toJson()).toList();
     // }
     return data;
   }

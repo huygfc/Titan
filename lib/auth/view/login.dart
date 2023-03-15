@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:titan_saga/auth/controller/auth_controller.dart';
-import 'package:titan_saga/dashboard/controller/controller.dart';
+import 'package:titan_saga/dashboard/controller/dashboard_controller.dart';
 
 import '../../dashboard/view/dashboard.dart';
 import '../../utils/colors.dart';

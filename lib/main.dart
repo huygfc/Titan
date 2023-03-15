@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:titan_saga/auth/view/login.dart';
 import 'package:titan_saga/dashboard/view/dashboard.dart';
 import 'package:titan_saga/utils/colors.dart';
@@ -32,8 +33,13 @@ class MyApp extends StatelessWidget {
                 color: Colors.amberAccent),
           ),
         ),
-        home: Shared_Preference?.getBool(SharedPreferenceKeys.isLogin) == true
-            ? const Dashboard()
-            : const Login());
+        home: LoaderOverlay(
+          duration: const Duration(milliseconds: 250),
+          reverseDuration: const Duration(milliseconds: 250),
+          child:
+              Shared_Preference?.getBool(SharedPreferenceKeys.isLogin) == true
+                  ? const Dashboard()
+                  : const Login(),
+        ));
   }
 }

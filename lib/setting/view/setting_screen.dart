@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:titan_saga/dashboard/controller/controller.dart';
+import 'package:titan_saga/dashboard/controller/dashboard_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -10,7 +10,7 @@ class SettingsScreen extends StatelessWidget {
       body: Center(
         child: ElevatedButton.icon(
             onPressed: () {
-              signout(context);
+              DashboardController().signout(context);
             },
             icon: Icon(Icons.logout_outlined),
             label: Text('log out')),
