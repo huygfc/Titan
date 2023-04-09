@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../product_detail/view/product_detil_screen.dart';
 import '../../utils/size_constants.dart';
+import '../controller/homepage_product_controller.dart';
 import 'homepage_display_item.dart';
 
 class HomepageDisplayProducts extends StatelessWidget {
@@ -28,7 +30,7 @@ class HomepageDisplayProducts extends StatelessWidget {
         children: [
           Text(productListName, style: Theme.of(context).textTheme.subtitle1),
           const SizedBox(
-            height: 10,
+            height: 20,
           ),
           StreamBuilder<QuerySnapshot>(
             stream: _productsStream,
@@ -37,7 +39,6 @@ class HomepageDisplayProducts extends StatelessWidget {
               if (snapshot.hasError) {
                 return const Text('Something went wrong');
               }
-
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -45,91 +46,32 @@ class HomepageDisplayProducts extends StatelessWidget {
               }
               if (snapshot.connectionState == ConnectionState.active) {
                 return SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.315,
+                    height: MediaQuery.of(context).size.height * 0.420,
                     width: MediaQuery.of(context).size.width,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children:
                           snapshot.data!.docs.map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
+                        Map<String, dynamic> productData =
                             document.data()! as Map<String, dynamic>;
-                        // List typesList = data["type"];
-                        // typesList.contains("featured")
-                        print("image is ${data["product_image"][0]}");
-                        return HomePageDisplayItem(
-                          productImagePath: data["product_image"][0],
-                          productName: data["product_name"],
-                          productPrice: data["price"],
-                          // onTap: () async {
-                          //   context.loaderOverlay.show();
-                          //   String currentOrderId =
-                          //       Shared_Preference.getString("currentOrderId");
-                          //   if (currentOrderId == "N/A") {
-                          //     Map<String, dynamic> passDataToCart = {};
-                          //     currentOrderId =
-                          //         CustomFunction().getCurrentTimeInInt();
-                          //     Shared_Preference.setString(
-                          //         "currentOrderId", currentOrderId);
-                          //     data["count"] = 1;
-                          //     passDataToCart = {
-                          //       "order_id": currentOrderId,
-                          //       "product_list": [data],
-                          //     };
-                          //     FirebaseFirestore.instance
-                          //         .collection("cart")
-                          //         .doc(currentOrderId)
-                          //         .set(passDataToCart);
-                          //     context.loaderOverlay.hide();
-                          //   } else {
-                          //     DocumentSnapshot currentCartOrder =
-                          //         await FirebaseFirestore.instance
-                          //             .collection("cart")
-                          //             .doc(currentOrderId)
-                          //             .get();
-                          //     Map<String, dynamic> currentOrderMap =
-                          //         currentCartOrder.data()
-                          //             as Map<String, dynamic>;
-                          //     bool checkProductExist =
-                          //         currentOrderMap["product_list"].any(
-                          //             (element) => element.values
-                          //                 .contains(data["id"]) as bool);
-                          //     if (checkProductExist) {
-                          //       var element = currentOrderMap["product_list"]
-                          //           .firstWhere(
-                          //               (k) => k.values.contains(data["id"])
-                          //                   as bool,
-                          //               orElse: () => {});
-                          //       var index = currentOrderMap["product_list"]
-                          //           .indexOf(element);
-                          //       print("index");
-                          //       print(index);
-                          //       element.update(
-                          //           "count", (v) => element["count"] + 1);
-                          //       currentOrderMap["product_list"][index] =
-                          //           element;
-                          //       FirebaseFirestore.instance
-                          //           .collection("cart")
-                          //           .doc(currentOrderId)
-                          //           .update({
-                          //         "product_list":
-                          //             currentOrderMap["product_list"]
-                          //       });
-                          //       context.loaderOverlay.hide();
-                          //     } else {
-                          //       data["count"] = 1;
-                          //       currentOrderMap["product_list"].add(data);
-                          //       FirebaseFirestore.instance
-                          //           .collection("cart")
-                          //           .doc(currentOrderId)
-                          //           .update({
-                          //         "product_list":
-                          //             currentOrderMap["product_list"]
-                          //       });
-                          //       context.loaderOverlay.hide();
-                          //       return;
-                          //     }
-                          //   }
-                          // },
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ProductDetailScreen(
+                                      productData: productData),
+                                ));
+                          },
+                          child: HomePageDisplayItem(
+                            productImagePath: productData["product_image"][0],
+                            productName: productData["product_name"],
+                            productPrice: productData["price"],
+                            onTap: () async {
+                              await HomepageProductController()
+                                  .addProductToCart(context, productData);
+                            },
+                          ),
                         );
                       }).toList(),
                     ));
