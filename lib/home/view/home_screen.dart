@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             const BannerCrousel(),
             HomepageDisplayProducts(productListName: "Featured Product"),
-            // HomepageDisplayProducts(productListName: "Liked Products"),
           ],
         ),
       ),

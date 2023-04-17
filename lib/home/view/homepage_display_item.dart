@@ -66,7 +66,7 @@ class HomePageDisplayItem extends StatelessWidget {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
                         child: ColoredBox(
-                          color: ThemeColor.primaryColor,
+                          color: Colors.black87,
                           child: IconButton(
                             onPressed: () {
                               return onTap();

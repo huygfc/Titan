@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:titan_saga/About_us/view/Aboutus_screen.dart';
+import 'package:titan_saga/Category/view/Category_screen.dart';
 import 'package:titan_saga/privacy_policy/view/privacy_policy_screen.dart';
 import 'package:titan_saga/terms_and_condition/view/terms_and_condition.dart';
 
@@ -67,13 +69,27 @@ Drawer customDrawer(BuildContext context) {
                   builder: (context) => PrivacyPolicyScreen(),
                 ));
               },
-              leading: Icon(Icons.admin_panel_settings),
+              leading: Icon(Icons.privacy_tip_outlined),
               title: Text("Privacy policy"),
             ),
             ListTile(
-              leading: Icon(Icons.info),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AboutusScreen(),
+                ));
+              },
+              leading: Icon(Icons.account_box_outlined),
               title: Text("About us"),
-            )
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => CategoryScreen(),
+                ));
+              },
+              leading: Icon(Icons.category_outlined),
+              title: Text("Category"),
+            ),
           ],
         )
       ],

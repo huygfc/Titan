@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:titan_saga/cart/view/cart_screen.dart';
 
 import '../../home/controller/homepage_product_controller.dart';
 import '../../utils/size_constants.dart';
@@ -169,7 +170,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           Padding(
             padding: const EdgeInsets.all(8),
             child: FloatingActionButton(
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Colors.black87,
               onPressed: () {
                 HomepageProductController()
                     .addProductToCart(context, widget.productData);

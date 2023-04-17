@@ -11,17 +11,24 @@ class HomepageDisplayProducts extends StatelessWidget {
   HomepageDisplayProducts({
     Key? key,
     required this.productListName,
+    this.categoryname = "",
   }) : super(key: key);
 
   Stream<QuerySnapshot>? _productsStream;
-  final String productListName;
+  final String productListName, categoryname;
 
   @override
   Widget build(BuildContext context) {
-    _productsStream = FirebaseFirestore.instance
-        .collection('products')
-        .orderBy("product_name", descending: false)
-        .snapshots();
+    categoryname == ""
+        ? _productsStream = FirebaseFirestore.instance
+            .collection('products')
+            .orderBy("product_name", descending: false)
+            .snapshots()
+        : _productsStream = FirebaseFirestore.instance
+            .collection('products')
+            .where("category", arrayContains: categoryname)
+            .orderBy("product_name", descending: false)
+            .snapshots();
     return Padding(
       padding: EdgeInsets.all(SizeConstants.appPadding),
       child: Column(

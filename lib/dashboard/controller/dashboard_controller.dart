@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:titan_saga/auth/view/login.dart';
+import 'package:titan_saga/utils/Custom_Function.dart';
 import 'package:titan_saga/utils/custom_dailog.dart';
 import 'package:titan_saga/utils/firebase_consts.dart';
 import 'package:titan_saga/utils/firebase_main.dart';
@@ -22,10 +23,16 @@ class DashboardController {
       }
     } catch (error) {
       if (error == FirebaseCollections.noInternetString) {
-        CustomDialog().dialog(context, () {
-          Navigator.pop(context);
-          signout(context);
-        });
+        CustomDialog().dialog(
+            context: context,
+            onPress: () {
+              Navigator.pop(context);
+              signout(context);
+            },
+            isCancelAvailable: true,
+            successButtonName: "Retry",
+            title: "No internet connection",
+            content: "check your internet connectivity");
       }
     }
   }

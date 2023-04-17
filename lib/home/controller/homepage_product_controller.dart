@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 import '../../utils/Custom_Function.dart';
+import '../../utils/custom_dailog.dart';
 import '../../utils/shared_prefrence.dart';
 
 class HomepageProductController {
@@ -58,5 +59,6 @@ class HomepageProductController {
         return;
       }
     }
+    CustomFunction().showToast("Added To Cart");
   }
 }
