@@ -87,8 +87,8 @@ Drawer customDrawer(BuildContext context) {
                   builder: (context) => CategoryScreen(),
                 ));
               },
-              leading: Icon(Icons.category_outlined),
-              title: Text("Category"),
+              leading: Icon(Icons.watch_rounded),
+              title: Text("Watches"),
             ),
           ],
         )

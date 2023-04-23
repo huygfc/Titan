@@ -11,6 +11,7 @@ class _AboutusScreenState extends State<AboutusScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text('About Us'),
         ),
@@ -21,14 +22,15 @@ class _AboutusScreenState extends State<AboutusScreen> {
             children: <Widget>[
               Text(
                 'About Us',
-                style: TextStyle(fontSize: 24.0),
+                style: TextStyle(fontSize: 50, backgroundColor: Colors.white),
               ),
               SizedBox(height: 16.0),
               Center(
                 child: Text(
-                  'This Application Is Made By \nPrince Moradiya\n Nimesh Kalena\n Krish Kalathiya',
+                  'This App is made for buy watches from Titan Saga.\nThis Application is Made by our Team Member',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 18.0),
+                  style:
+                      TextStyle(fontSize: 18.0, backgroundColor: Colors.white),
                 ),
               ),
               SizedBox(height: 16.0),
@@ -36,11 +38,11 @@ class _AboutusScreenState extends State<AboutusScreen> {
                 'Contact us:',
                 style: TextStyle(fontSize: 18.0),
               ),
-              SizedBox(height: 8.0),
+              SizedBox(height: 4.0),
               Text(
-                'Email: demo@gmail.com\nPhone:+91 8866574350\nProject Guide: N C DUTIYA\nCollege :- G.P RAJKOT',
+                'Email: princemoradiya113@gmail.com\nPhone:+91 8866574350\nProject Guide: N C DUTIYA\nCollege :- G.P RAJKOT',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18.0),
+                style: TextStyle(fontSize: 18.0, backgroundColor: Colors.white),
               ),
             ],
           ),

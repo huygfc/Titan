@@ -1,14 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:logger/logger.dart';
-import 'package:titan_saga/utils/Custom_Function.dart';
-import 'package:titan_saga/utils/size_constants.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import '../../utils/custom_dailog.dart';
+
+import '../../oders/view/order_list_screen.dart';
+import '../../utils/Custom_Function.dart';
 import '../../utils/shared_prefrence.dart';
+import '../../utils/size_constants.dart';
 import '../controller/cart_controller.dart';
 
 class CartScreen extends StatefulWidget {
@@ -53,41 +55,72 @@ class _CartScreenState extends State<CartScreen> {
     }
   }
 
+  moveDocumentToOtherCollection(String docId, String paymentId) async {
+    var db = FirebaseFirestore.instance;
+    var oldColl = db.collection('cart').doc(docId);
+    var newColl = db.collection('orderHistory').doc(oldColl.id);
+
+    DocumentSnapshot? snapshot = await oldColl.get().then((docSnapshot) {
+      if (docSnapshot.exists) {
+        // document id does exist
+        print('Successfully found document');
+        Map<String, dynamic> setNewData = docSnapshot.data()!;
+        setNewData["created_at"] = DateTime.now();
+        setNewData["uid"] = FirebaseAuth.instance.currentUser?.uid;
+        setNewData["order_amount"] = cartTotal;
+        setNewData["payment_id"] = paymentId;
+        newColl
+            .set(setNewData)
+            .then((value) => print("document moved to orderHistory collection"))
+            .catchError((error) => print("Failed to move document: $error"))
+            .then((value) {
+          Shared_Preference.remove("currentOrderId");
+          return ({
+            oldColl
+                .delete()
+                .then((value) => print("document removed from old collection"))
+                .catchError((error) {
+              newColl.delete();
+              print("Failed to delete document: $error");
+            })
+          });
+        });
+      } else {
+        //document id doesnt exist
+        print('Failed to find document id');
+      }
+      return null;
+    });
+  }
+
   Future<void> _handlePaymentSuccess(PaymentSuccessResponse response) async {
     this.context.loaderOverlay.show();
     Logger().d(
       "SUCCESS: ${response.paymentId}",
     );
     if (response.paymentId != null && response.paymentId != "") {
-      await CartController().clearCart();
+      await moveDocumentToOtherCollection(
+          Shared_Preference.getString("currentOrderId"),
+          response.paymentId ?? "");
+
+      CustomDialog().dialog(
+          context: context,
+          onPress: () {
+            print("orderButton calling");
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OrderListScreen(),
+                ));
+          },
+          isCancelAvailable: true,
+          title: "Payment Success",
+          successButtonName: "View Order",
+          content:
+              "Congrats...\nYour order is successfully placed...\nDo you want to view your order?");
+
+      this.context.loaderOverlay.hide();
     }
-
-    // Query<Map<String, dynamic>> getCartProduct = await FirebaseFirestore.instance
-    //     .collection('cart')
-    //     .where("order_id",
-    //     isEqualTo: Shared_Preference.getString("currentOrderId"));
-    // WriteBatch batch = FirebaseFirestore.instance.batch();
-    // batch.update();
-    // batch.commit();
-    CustomDialog().dialog(
-        context: context,
-        onPress: () {
-          print("orderButton calling");
-        },
-        isCancelAvailable: true,
-        title: "Payment Successful",
-        successButtonName: "View Order",
-        content:
-            "Congrats...\nYour order is successfully placed...\nDo you want to view your order?");
-
-    this.context.loaderOverlay.hide();
-    // Navigator.of(context).push(MaterialPageRoute(
-    //   builder: (context) => VideoDescriptionScreen(
-    //     title: selectedVideoData["title"],
-    //     videoUrl: selectedVideoData["video_url"],
-    //     description: selectedVideoData["description"],
-    //   ),
-    // ));
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -161,11 +194,7 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               title: Row(
                                 children: [
-                                  Expanded(
-                                      child: Text(
-                                    document["product_name"],
-                                    maxLines: 5,
-                                  )),
+                                  Text(document["product_name"]),
                                   const Spacer(),
                                   Text("Rs.${document["price"]}"),
                                 ],

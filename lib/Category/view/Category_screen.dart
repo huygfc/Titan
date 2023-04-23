@@ -15,31 +15,29 @@ class _CategoryScreenState extends State<CategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Category "), elevation: 10),
+      appBar: AppBar(title: Text("Category"), elevation: 10),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            const BannerCrousel(),
             HomepageDisplayProducts(
               productListName: "Ladies Watches",
-              categoryname: "Ladies",
+              categoryName: "Ladies",
             ),
             HomepageDisplayProducts(
               productListName: "Smart Watches",
-              categoryname: "smart",
+              categoryName: "smart",
             ),
             HomepageDisplayProducts(
               productListName: "Boys Watches",
-              categoryname: "Gents",
+              categoryName: "Gents",
             ),
             HomepageDisplayProducts(
               productListName: "Couple Watches",
-              categoryname: "Couple",
+              categoryName: "Couple",
             ),
             HomepageDisplayProducts(
               productListName: "Child Watches",
-              categoryname: "Child",
+              categoryName: "Child",
             ),
           ],
         ),

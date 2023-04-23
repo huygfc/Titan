@@ -23,7 +23,7 @@ class _LoginState extends State<Login> {
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white10,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
                             print('Welcome');
                           }
                         : null,
-                    label: const Text('Login With Google'))
+                    label: const Text('Login With Google')),
           ],
         ));
   }

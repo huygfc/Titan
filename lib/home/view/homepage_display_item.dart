@@ -34,8 +34,10 @@ class HomePageDisplayItem extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   child: CachedNetworkImage(
                     imageUrl: productImagePath,
-                    placeholder: (context, url) => CircularProgressIndicator(),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
                 const SizedBox(
@@ -61,7 +63,7 @@ class HomePageDisplayItem extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                     Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(8),
                       child: ClipRRect(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
