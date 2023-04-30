@@ -1,12 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:titan_saga/auth/view/login.dart';
-import 'package:titan_saga/utils/Custom_Function.dart';
-import 'package:titan_saga/utils/custom_dailog.dart';
-import 'package:titan_saga/utils/firebase_consts.dart';
-import 'package:titan_saga/utils/firebase_main.dart';
-import 'package:titan_saga/utils/shared_prefrence.dart';
+
+import '../../auth/view/login.dart';
+import '../../utils/Custom_Function.dart';
+import '../../utils/firebase_consts.dart';
+import '../../utils/firebase_main.dart';
+import '../../utils/shared_prefrence.dart';
 
 class DashboardController {
   Future<void> signout(BuildContext context) async {
@@ -15,11 +13,13 @@ class DashboardController {
       isSuccess = await FirebaseMain().googleLogout();
       if (isSuccess) {
         Shared_Preference.setBool(SharedPreferenceKeys.isLogin, false);
-        Navigator.push(
+        Shared_Preference.clear();
+        Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
               builder: (context) => Login(),
-            ));
+            ),
+            (route) => false);
       }
     } catch (error) {
       if (error == FirebaseCollections.noInternetString) {

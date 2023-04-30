@@ -32,7 +32,8 @@ class _HomepageDisplayProductsState extends State<HomepageDisplayProducts> {
   }
 
   Future fetchLikedProduct() async {
-    likedProducts = await HomepageProductController().fetchProducts();
+    likedProducts =
+        await HomepageProductController().fetchProducts() as List<String>;
     setState(() {});
   }
 

@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:titan_saga/About_us/view/Aboutus_screen.dart';
-import 'package:titan_saga/Category/view/Category_screen.dart';
-import 'package:titan_saga/privacy_policy/view/privacy_policy_screen.dart';
-import 'package:titan_saga/terms_and_condition/view/terms_and_condition.dart';
+
+import '../../About_us/view/Aboutus_screen.dart';
+import '../../Category/view/Category_screen.dart';
+import '../../terms_and_condition/view/terms_and_condition.dart';
 
 Drawer customDrawer(BuildContext context) {
   return Drawer(
@@ -25,28 +27,51 @@ Drawer customDrawer(BuildContext context) {
                     Radius.circular(50),
                   ),
                   clipBehavior: Clip.hardEdge,
-                  child: Image.asset(
-                    "assets/images/profile_pic.jpg",
-                    fit: BoxFit.fill,
+                  child: CachedNetworkImage(
+                    imageUrl: FirebaseAuth.instance.currentUser?.photoURL ?? "",
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                "prince",
-                style: Theme.of(context).textTheme.headline2?.copyWith(
-                      fontSize: 14,
-                      color: Colors.black,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      FirebaseAuth.instance.currentUser?.displayName ?? "",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline2?.copyWith(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
                     ),
+                  ),
+                ],
               ),
-              Text(
-                "demo@gmaill.com",
-                style: Theme.of(context).textTheme.headline2?.copyWith(
-                      fontSize: 14,
-                      color: Colors.black,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      FirebaseAuth.instance.currentUser?.email ?? "",
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.headline2?.copyWith(
+                            fontSize: 14,
+                            color: Colors.black,
+                          ),
                     ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -57,20 +82,11 @@ Drawer customDrawer(BuildContext context) {
             ListTile(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => TermsAndCondition(),
+                  builder: (context) => const TermsAndCondition(),
                 ));
               },
-              leading: Icon(Icons.gavel),
-              title: Text("Terms & conditions"),
-            ),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => PrivacyPolicyScreen(),
-                ));
-              },
-              leading: Icon(Icons.privacy_tip_outlined),
-              title: Text("Privacy policy"),
+              leading: const Icon(Icons.gavel),
+              title: const Text("Terms & conditions"),
             ),
             ListTile(
               onTap: () {
@@ -89,7 +105,7 @@ Drawer customDrawer(BuildContext context) {
               },
               leading: Icon(Icons.watch_rounded),
               title: Text("Watches"),
-            ),
+            )
           ],
         )
       ],

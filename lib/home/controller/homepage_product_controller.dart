@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-
 import '../../utils/custom_dailog.dart';
 import '../../utils/shared_prefrence.dart';
 

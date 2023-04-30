@@ -194,7 +194,11 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                               title: Row(
                                 children: [
-                                  Text(document["product_name"]),
+                                  Expanded(
+                                      child: Text(
+                                    document["product_name"],
+                                    maxLines: 5,
+                                  )),
                                   const Spacer(),
                                   Text("Rs.${document["price"]}"),
                                 ],
