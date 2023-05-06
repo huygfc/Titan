@@ -286,7 +286,13 @@ class _CartScreenState extends State<CartScreen> {
                   ],
                 );
               } else {
-                return Image.asset("assets/images/download.jpg");
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(
+                    child: Image.asset("assets/images/download.jpg"),
+                  ),
+                );
               }
             },
           ),

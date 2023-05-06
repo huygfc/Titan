@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:titan_saga/privacy_policy/view/privacy_policy_screen.dart';
 
 import '../../About_us/view/Aboutus_screen.dart';
 import '../../Category/view/Category_screen.dart';
@@ -85,7 +86,7 @@ Drawer customDrawer(BuildContext context) {
                   builder: (context) => const TermsAndCondition(),
                 ));
               },
-              leading: const Icon(Icons.gavel),
+              leading: const Icon(Icons.gavel_rounded),
               title: const Text("Terms & conditions"),
             ),
             ListTile(
@@ -100,10 +101,19 @@ Drawer customDrawer(BuildContext context) {
             ListTile(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => PrivacyPolicyScreen(),
+                ));
+              },
+              leading: Icon(Icons.privacy_tip_outlined),
+              title: Text("Privacy Policy"),
+            ),
+            ListTile(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => CategoryScreen(),
                 ));
               },
-              leading: Icon(Icons.watch_rounded),
+              leading: Icon(Icons.watch_outlined),
               title: Text("Watches"),
             )
           ],

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:titan_saga/utils/size_constants.dart';
 
 class BannerCrousel extends StatefulWidget {
-  const BannerCrousel({Key? key}) : super(key: key);
+  final List<String> bannerImages;
+  const BannerCrousel({Key? key, required this.bannerImages}) : super(key: key);
 
   @override
   State<BannerCrousel> createState() => _BannerCrouselState();
@@ -12,11 +13,6 @@ class BannerCrousel extends StatefulWidget {
 class _BannerCrouselState extends State<BannerCrousel> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
-  List<String> bannerImages = [
-    "assets/images/banner_one.jpg",
-    "assets/images/banner_two.jpg",
-    "assets/images/banner_three.jpg",
-  ];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +24,7 @@ class _BannerCrouselState extends State<BannerCrousel> {
           Container(
             padding: EdgeInsets.all(SizeConstants.appPadding),
             child: CarouselSlider(
-              items: bannerImages
+              items: widget.bannerImages
                   .map((item) => Image.asset(
                         item,
                         fit: BoxFit.cover,
@@ -55,7 +51,7 @@ class _BannerCrouselState extends State<BannerCrousel> {
               alignment: Alignment.bottomCenter,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: bannerImages.asMap().entries.map((entry) {
+                children: widget.bannerImages.asMap().entries.map((entry) {
                   return GestureDetector(
                     onTap: () => _controller.animateToPage(entry.key),
                     child: Container(
